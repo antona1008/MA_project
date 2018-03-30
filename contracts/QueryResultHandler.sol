@@ -25,8 +25,6 @@ contract QueryResultHandler {
         if (queryResultStructArray[i].queryId == _queryId
         && queryResultStructArray[i].resultId == _resultId) {
             return true;
-        } else {
-            continue;
         }
     }
     return false;
@@ -39,12 +37,8 @@ contract QueryResultHandler {
     bytes32 hashThem = keccak256(queryHash, resultHash);
 
     for (uint i = 0; i < queryResultStructArray.length; i++){
-        if (queryResultStructArray[i].finalHash == hashThem
-        && queryResultStructArray[i].queryHash == queryHash
-        && queryResultStructArray[i].resultHash == resultHash) {
+        if (queryResultStructArray[i].finalHash == hashThem) {
             return true;
-        } else {
-            continue;
         }
     }
     return false;
