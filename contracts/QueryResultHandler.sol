@@ -20,7 +20,7 @@ contract QueryResultHandler {
     return true;
   }
 
-  function validateQueryResults(uint256 _queryId, uint256 _resultId) external view returns (bool success ){
+  function validateQueryResultsById(uint256 _queryId, uint256 _resultId) external view returns (bool success ){
     for (uint i = 0; i < queryResultStructArray.length; i++){
         if (queryResultStructArray[i].queryId == _queryId
         && queryResultStructArray[i].resultId == _resultId) {
@@ -30,7 +30,7 @@ contract QueryResultHandler {
     return false;
   }
 
-  function validateQueryResults(string _queryString, string _resultString) external view returns (bool success ){
+  function validateQueryResultsByString(string _queryString, string _resultString) external view returns (bool success ){
     bytes32 queryHash = keccak256(_queryString);
     bytes32 resultHash = keccak256(_resultString);
 
