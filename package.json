@@ -1,0 +1,30 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antona1008/MA_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antona1008/MA_project/issues"
+  },
+  "homepage": "https://github.com/antona1008/MA_project#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "bluebird": "^3.5.1",
+    "csv": "^2.0.0",
+    "fast-csv": "^2.4.1",
+    "promised-csv": "^1.0.1",
+    "q": "^1.5.1"
+  }
+}
