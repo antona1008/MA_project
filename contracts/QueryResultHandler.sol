@@ -12,7 +12,14 @@ contract QueryResultHandler {
 
   QueryResultStruct[] queryResultStructArray;
 
+  event Error(string errorMessage);
+
   function storeQueryResults(uint256 _queryId, uint256 _resultId, string _queryString, string _resultString) external returns (bool success) {
+    Error("checking queryId");
+    require(_queryId > 0);
+    require(_resultId > 0);
+    require(bytes(_queryString).length > 0);
+    require(bytes(_resultString).length > 0);
     bytes32 queryHash = keccak256(_queryString);
     bytes32 resultHash = keccak256(_resultString);
     bytes32 hashThem = keccak256(queryHash, resultHash);

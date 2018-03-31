@@ -14,6 +14,16 @@ contract('QueryResultHandler', function() {
   });
 
   it("Validation should return false, if the query ID and the result set ID are not stored yet", async () => {
+    let err = null
+    try {
+      await queryResultHandlerContract.storeQueryResults(0, 0, "a", "b");
+    } catch (error) {
+      console.log(err);
+    }
+    assert.ok(err instanceof Error);
+  });
+
+  it("Validation should return false, if the query ID and the result set ID are not stored yet", async () => {
     queryResultHandlerContract.validateQueryResultsById.call(1, 2).then(function(valid) {
       assert.equal(valid, false, "The query ID is already stored");
     });
