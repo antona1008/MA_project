@@ -1,11 +1,11 @@
 'use strict';
 
 require('truffle-test-utils').init();
+
 const QueryResultHandler = artifacts.require("./QueryResultHandler.sol");
 const csv = require('fast-csv');
 const inputFile = './test/example_result.csv';
 const CsvReader = require('promised-csv');
-
 
 contract('QueryResultHandler', function() {
   let instance;
