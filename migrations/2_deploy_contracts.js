@@ -1,4 +1,4 @@
-var QueryResultHandler = artifacts.require('./QueryResultHandler.sol');
+var QueryResultHandler = artifacts.require('./QueryResultHandler');
 
 module.exports = function(deployer) {
   deployer.deploy(QueryResultHandler);
