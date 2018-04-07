@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +28,8 @@
     "promised-csv": "^1.0.1",
     "q": "^1.5.1",
     "truffle-test-utils": "^0.1.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0"
   }
 }
