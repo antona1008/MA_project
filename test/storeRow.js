@@ -3,9 +3,6 @@
 require('truffle-test-utils').init();
 
 const QueryResultHandler = artifacts.require("./QueryResultHandler");
-const csv = require('fast-csv');
-const inputFile = './test/example_result.csv';
-const CsvReader = require('promised-csv');
 let instance;
 
 contract('storeRow() function test', function() {
@@ -73,27 +70,4 @@ contract('storeRow() function test', function() {
       }
     }, 'Error event is missing when row is an integer');
   });
-
-  it("(nonExistentFunction: returns error (instance.nonExistentFunction is not a function)", async () => {
-    let err = null
-    try {
-      await instance.nonExistentFunction(1,"a");
-    } catch (error) {
-      err = error;
-    }
-    assert.ok(err instanceof Error, 'No error was thrown');
-    assert.equal(err.message, "instance.nonExistentFunction is not a function", 'Not a function error was not thrown');
-  });
-});
-
-
-function readCSV(inputFile) {
-  var reader = new CsvReader();
-  var output = [];
-  reader.on('row', function(data) {
-    //console.log(data);
-    output.push(data[0]);
-  });
-
-  return reader.read(inputFile, output);
-}
+})

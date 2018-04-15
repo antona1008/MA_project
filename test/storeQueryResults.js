@@ -3,9 +3,6 @@
 require('truffle-test-utils').init();
 
 const QueryResultHandler = artifacts.require("./QueryResultHandler");
-const csv = require('fast-csv');
-const inputFile = './test/example_result.csv';
-const CsvReader = require('promised-csv');
 let instance;
 
 contract('storeQueryResults() function test', function() {
@@ -46,7 +43,7 @@ contract('storeQueryResults() function test', function() {
       'Error event is missing when result ID is equal to 0');
   });
 
-  it("1,1,'',''): returns Error event (Query string must be provided)", async () => {
+  it("(1,1,'',''): returns Error event (Query string must be provided)", async () => {
     let result = await instance.storeQueryResults(1, 1, "", "");
     assert.web3Event(result, {
       event: 'Error',
@@ -108,16 +105,4 @@ contract('storeQueryResults() function test', function() {
     assert.ok(err instanceof Error, 'No error was thrown');
     assert.equal(err.message, "instance.nonExistentFunction is not a function", 'Not a function error was not thrown');
   });
-});
-
-
-function readCSV(inputFile) {
-  var reader = new CsvReader();
-  var output = [];
-  reader.on('row', function(data) {
-    //console.log(data);
-    output.push(data[0]);
-  });
-
-  return reader.read(inputFile, output);
-}
+})

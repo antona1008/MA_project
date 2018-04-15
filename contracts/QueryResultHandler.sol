@@ -120,8 +120,4 @@ contract QueryResultHandler {
     }
     return ViewResultCodes.NoMatchFound;
   }
-
-  function() public {
-    emit Error("No function is not defined with the given identifier");
-  }
 }

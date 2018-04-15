@@ -1,0 +1,16 @@
+{
+	"id" : "1002992",
+	"version" : "0.0.1",
+ 	"timestamp" : "2018-01-29 12:34:56",
+ 	"user_id" : "123456",
+ 	"request" :
+ 	{
+ 		"external": [
+ 			{"attribute": "O01RG", "service": "ioer_wps", "year": "2015"},
+ 			{"attribute": "O02RG", "service": "ioer_wps", "year": "2015"}
+ 		],
+ 		"internal": {	"panel": "panel_2015",
+              			"address": "address_data",
+              			"ids": "id_data"}
+ 	}
+ }

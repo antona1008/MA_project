@@ -39,4 +39,4 @@ contract('validateQueryResultsByString() function test', function() {
       assert.equal(viewResultCode, ViewResultCodes.Success, "Returned code was: " + viewResultCode);
     });
   });
-});
+})
