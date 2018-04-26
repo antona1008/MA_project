@@ -64,7 +64,7 @@ App = {
         if ($.isNumeric(data.id)) {
           queryId = data.id;
           $('#queryIdInput').attr('value', queryId);
-        };
+        }
         queryString = JSON.stringify(data.request);
         $('#queryStringInput').html(queryString);
       },
@@ -218,7 +218,7 @@ App = {
     App.resultArray = [];
     for (var x in temp) {
       App.resultArray.push(temp[x]);
-    };
+    }
   },
 
   getValidateStringInputData: function() {
@@ -230,7 +230,7 @@ App = {
     App.resultArray = [];
     for (var x in temp) {
       App.resultArray.push(temp[x]);
-    };
+    }
   },
 
   getValidatIDInputData: function() {
