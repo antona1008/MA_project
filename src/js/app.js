@@ -237,7 +237,6 @@ App = {
     App.queryId = $('#queryIdInputValidateID').val();
     App.resultId = $('#resultIdInputValidateID').val();
   }
-
 };
 
 $(function() {
