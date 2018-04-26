@@ -18,14 +18,14 @@ contract('storeRow() function test', function() {
     }, 'Storing valid input failed');
   });
 
-  it("(0,'a'): returns Error event (Result set ID must be greater than 0)", async () => {
+  it("(0,'a'): returns Error event (Result ID must be greater than 0)", async () => {
     let result = await instance.storeRow(0, "a");
     assert.web3Event(result, {
       event: 'Error',
       args: {
         errorMessage: 'Result ID must be greater than 0'
       }
-    }, 'Error event is missing when result set ID is equal to 0');
+    }, 'Error event is missing when result ID is equal to 0');
   });
 
 

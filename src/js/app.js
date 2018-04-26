@@ -41,15 +41,6 @@ App = {
     $(document).on('click', '#storeButton', App.storeInput);
     $(document).on('click', '#validateStringButton', App.validateString);
     $(document).on('click', '#validateIDButton', App.validateID);
-    //TODO:
-    $('#resultFile').bind(
-      'change',
-      function() {
-        App.readCSV('#resultFile', '#resultStringInput', false)
-      });
-    $('#queryFile').bind('change', function() {
-      App.readJSONAfterRendering();
-    });
   },
 
   listenForEvents: function() {
@@ -59,7 +50,7 @@ App = {
         toBlock: 'latemp'
       }).watch(function(error, event) {
         //console.log("event triggered", event)
-        //egy view function, ami megmondja, hany record van tarolva egy id-hoz
+        //thsi enables to watch events emitted by the smart contract
       });
     });
   },
@@ -82,32 +73,6 @@ App = {
         console.log(err.Message);
       }
     })
-  },
-
-  readJSONAfterRendering: function() {
-    var reader = new FileReader();
-    reader.onload = function() {
-      var data = JSON.parse(reader.result);
-
-      if (typeof data.id != 'undefined') {
-        console.log(data.id);
-        App.queryId = data.id;
-        $('#queryIdInput').attr('value', data.id);
-      } else {
-        alert("Input does not contain ID!");
-      }
-
-      if (typeof data.request != 'undefined') {
-        console.log(data.request);
-        App.queryString = JSON.stringify(data.request);
-        $('#queryStringInput').html(JSON.stringify(data.request));
-      } else {
-        alert("Input does not contain request!");
-      }
-    }
-
-    var fileInput = document.getElementById("queryFile");
-    reader.readAsText(fileInput.files[0]);
   },
 
   readCSV: function(input, isInitialRendering) {
@@ -138,8 +103,8 @@ App = {
     }).then(function(success) {
       return getResultList();
     }).then(function(values) {
+      alert("The values are stored successfully.");
       console.log(values);
-      return values;
     }).catch(function(err) {
       alert(err.message);
     });
@@ -169,13 +134,41 @@ App = {
         JSON.stringify(App.resultArray)
       );
     }).then(function(resultCode) {
-      console.log("the result code  " + resultCode);
-      if (resultCode == 1) {
-        return getResultList();
+      switch (resultCode.toNumber()) {
+        case 0: alert("The given strings are valid.");
+          break;
+        case 1: alert("The rows will be validated one by one. Please wait.")
+          return getResultList();
+        case 3: alert("The query and the result set have to be provided.")
+          break;
       }
     }).then(function(values) {
-      console.log("values: " + JSON.stringify(values));
-      return values;
+      if (typeof values !== 'undefined') {
+        console.log(values);
+        var match = [];
+        var noMatch = [];
+        var emptyRow = [];
+        var wrongID = false;
+        values.forEach(function(element){
+          switch (element.result.toNumber()) {
+            case 0: match.push(element.row);
+              break;
+            case 1: noMatch.push(element.row);
+              break;
+            case 2: wrongID = true;
+              break;
+            case 3: emptyRow.push(element.row);
+              break;
+          }
+        });
+        console.log(match);
+        if (wrongID){
+          alert ("The result set ID has to be greater than 0.");
+        } else {
+          alert("The row(s) that do not match: " + noMatch +", number of empty rows provided: " + emptyRow.length);
+        }
+        return values;
+      }
     }).catch(function(err) {
       alert(err.message);
     })
@@ -202,7 +195,14 @@ App = {
         App.resultId
       );
     }).then(function(resultCode) {
-      console.log("the result code  " + resultCode);
+      switch (resultCode.toNumber()) {
+        case 0: alert("The given IDs are valid.");
+          break;
+        case 1: alert("No match was found.")
+          break;
+        case 2: alert("IDs have to be greater than 0.")
+          break;
+      }
     }).catch(function(err) {
       alert(err.message);
     })
@@ -239,8 +239,6 @@ App = {
   }
 
 };
-
-
 
 $(function() {
   $(window).load(function() {

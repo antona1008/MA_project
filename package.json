@@ -22,11 +22,6 @@
   "homepage": "https://github.com/antona1008/MA_project#readme",
   "dependencies": {
     "async": "^2.6.0",
-    "bluebird": "^3.5.1",
-    "csv": "^2.0.0",
-    "fast-csv": "^2.4.1",
-    "promised-csv": "^1.0.1",
-    "q": "^1.5.1",
     "truffle-test-utils": "^0.1.0"
   },
   "devDependencies": {

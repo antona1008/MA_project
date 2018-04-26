@@ -16,39 +16,45 @@ contract('validateQueryResultsById() function test', function() {
   });
 
   it("(0,1): Should return the IntegerNotPositive code", async () => {
-    instance.validateQueryResultsById.call(0, 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsById.call(0, 1);
+    assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
   });
 
   it("(1,0): Should return the IntegerNotPositive code", async () => {
-    instance.validateQueryResultsById.call(1, 0).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsById.call(1, 0);
+    assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
   });
 
-  it("('a',1): Should return the IntegerNotPositive code", async () => {
-    instance.validateQueryResultsById.call("a", 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
-    });
+  it("('a',1): Should return an error (BigNumber Error: new BigNumber() not a number", async () => {
+    let err = null
+    try {
+      await instance.validateQueryResultsById.call("a", 1);
+    } catch (error) {
+      err = error;
+    }
+    assert.ok(err instanceof Error, 'No error was thrown');
+    assert.equal(err.message, "new BigNumber() not a number: a", 'BigNumber error was not thrown');
   });
 
-  it("('[a,b],1): Should return the IntegerNotPositive code", async () => {
-    instance.validateQueryResultsById.call(['a','b'], 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.IntegerNotPositive, "Returned code was: " + viewResultCode);
-    });
+  it("('[a,b],1): Should return an error (BigNumber Error: new BigNumber() not a number", async () => {
+    let err = null
+    try {
+      await instance.validateQueryResultsById.call(['a','b'], 1);
+    } catch (error) {
+      err = error;
+    }
+    assert.ok(err instanceof Error, 'No error was thrown');
+    assert.equal(err.message, "new BigNumber() not a number: a,b", 'BigNumber error was not thrown');
   });
 
   it("(1,1): Should return the NoMatchFound code", async () => {
-    instance.validateQueryResultsById.call(1, 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.NoMatchFound, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsById.call(1, 1);
+    assert.equal(viewResultCode, ViewResultCodes.NoMatchFound, "Returned code was: " + viewResultCode);
   });
 
   it("(1,1): Should return the Success code", async () => {
     instance.storeQueryResults(1, 1, "a", "b");
-    instance.validateQueryResultsById.call(1, 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.Success, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsById.call(1, 1);
+    assert.equal(viewResultCode, ViewResultCodes.Success, "Returned code was: " + viewResultCode);
   });
 });

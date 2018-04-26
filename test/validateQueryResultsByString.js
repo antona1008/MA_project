@@ -16,27 +16,28 @@ contract('validateQueryResultsByString() function test', function() {
   });
 
   it("('',''): Should return the StringEmpty code", async () => {
-    instance.validateQueryResultsByString.call('', '').then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.StringEmpty, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsByString.call('', '');
+    assert.equal(viewResultCode, ViewResultCodes.StringEmpty, "Returned code was: " + viewResultCode);
+  });
+
+  it("('a',''): Should return the StringEmpty code", async () => {
+    let viewResultCode = await instance.validateQueryResultsByString.call('a', '');
+    assert.equal(viewResultCode, ViewResultCodes.StringEmpty, "Returned code was: " + viewResultCode);
   });
 
   it("(a,b): Should return the NoMatchFound code", async () => {
-    instance.validateQueryResultsByString.call("a", "b").then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.NoMatchFound, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsByString.call("a", "b");
+    assert.equal(viewResultCode, ViewResultCodes.NoMatchFound, "Returned code was: " + viewResultCode);
   });
 
   it("(1,a): Should return the StringEmpty code", async () => {
-    instance.validateQueryResultsByString.call("a", 1).then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.StringEmpty, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsByString.call("a", 1);
+    assert.equal(viewResultCode, ViewResultCodes.StringEmpty, "Returned code was: " + viewResultCode);
   });
 
   it("(a,b): Should return the Success code", async () => {
     instance.storeQueryResults(1, 1, "a", "b");
-    instance.validateQueryResultsByString.call("a", "b").then(function(viewResultCode) {
-      assert.equal(viewResultCode, ViewResultCodes.Success, "Returned code was: " + viewResultCode);
-    });
+    let viewResultCode = await instance.validateQueryResultsByString.call("a", "b");
+    assert.equal(viewResultCode, ViewResultCodes.Success, "Returned code was: " + viewResultCode);
   });
 })

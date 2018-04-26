@@ -6,25 +6,24 @@ contract QueryResultHandler {
       bytes32 finalHash;
       bytes32 queryHash;
       bytes32 resultHash;
-      uint256 queryId;
-      uint256 resultId;
+      int256 queryId;
+      int256 resultId;
   }
 
   QueryResultStruct[] queryResultStructArray;
 
-  mapping(uint256=>bytes32[]) idRowArrayMapping;
+  mapping(int256=>bytes32[]) idRowArrayMapping;
 
   event QueryResultStored(
-    uint256 queryId,
-    uint256 resultId
+    int256 queryId,
+    int256 resultId
     );
   event RowStored();
   event Error(string errorMessage);
 
   enum ViewResultCodes { Success, NoMatchFound, IntegerNotPositive, StringEmpty }
-  ViewResultCodes public viewResultCode;
 
-  function storeQueryResults(uint256 _queryId, uint256 _resultId, string _queryString, string _resultString) external returns (bool success) {
+  function storeQueryResults(int256 _queryId, int256 _resultId, string _queryString, string _resultString) external returns (bool success) {
     if (_queryId <= 0) {
       emit Error("Query ID must be greater than 0");
       return false;
@@ -50,7 +49,7 @@ contract QueryResultHandler {
     return true;
   }
 
-  function validateQueryResultsById(uint256 _queryId, uint256 _resultId) external view returns (ViewResultCodes result) {
+  function validateQueryResultsById(int256 _queryId, int256 _resultId) external view returns (ViewResultCodes result) {
     if (_queryId <= 0) {
       return ViewResultCodes.IntegerNotPositive;
     }
@@ -86,7 +85,7 @@ contract QueryResultHandler {
     return ViewResultCodes.NoMatchFound;
   }
 
-  function storeRow(uint256 _resultId, string _rowString) external returns (bool success) {
+  function storeRow(int256 _resultId, string _rowString) external returns (bool success) {
     if (_resultId <= 0) {
       emit Error("Result ID must be greater than 0");
       return false;
@@ -102,7 +101,7 @@ contract QueryResultHandler {
     return true;
   }
 
-  function validateRow(uint256 _resultId, string _rowString) external view returns (ViewResultCodes result) {
+  function validateRow(int256 _resultId, string _rowString) external view returns (ViewResultCodes result) {
     if (_resultId <= 0) {
       return ViewResultCodes.IntegerNotPositive;
     }
